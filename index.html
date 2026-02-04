@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Spinning Donut</title>
+    <style>
+        body {
+            background: black;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+        pre {
+            color: #0f0;
+            font-family: monospace;
+            font-size: 10px;
+            line-height: 1;
+        }
+    </style>
+</head>
+<body>
+    <pre id="donut"></pre>
+    <script>
+        let A = 0, B = 0;
+        const donutEl = document.getElementById('donut');
+        
+        function renderFrame() {
+            const width = 80, height = 22;
+            const b = new Array(width * height).fill(' ');
+            const z = new Array(width * height).fill(0);
+            
+            for (let j = 0; j < 6.28; j += 0.03) {
+                for (let i = 0; i < 6.28; i += 0.02) {
+                    const c = Math.sin(i), d = Math.cos(j);
+                    const e = Math.sin(A), f = Math.sin(j);
+                    const g = Math.cos(A), h = d + 2;
+                    const D = 1 / (c * h * e + f * g + 5);
+                    const l = Math.cos(i), m = Math.cos(B);
+                    const n = Math.sin(B), t = c * h * g - f * e;
+                    
+                    const x = Math.floor(40 + 30 * D * (l * h * m - t * n));
+                    const y = Math.floor(12 + 15 * D * (l * h * n + t * m));
+                    const o = x + width * y;
+                    const N = Math.floor(8 * ((f * e - c * d * g) * m - c * d * e - f * g - l * d * n));
+                    
+                    if (y < 22 && y > 0 && x > 0 && x < 80 && D > z[o]) {
+                        z[o] = D;
+                        b[o] = '.,-~:;=!*#$@'[Math.max(N, 0)];
+                    }
+                }
+            }
+            
+            let output = '';
+            for (let k = 0; k < width * height; k++) {
+                output += (k % width === 0 && k !== 0) ? '\n' + b[k] : b[k];
+            }
+            
+            donutEl.textContent = output;
+            A += 0.04;
+            B += 0.02;
+        }
+        
+        setInterval(renderFrame, 50);
+    </script>
+</body>
+</html>
