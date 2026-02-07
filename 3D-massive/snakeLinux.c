@@ -51,3 +51,24 @@ void enableRawMode() {
     tcsetattr(STDIN_FILENO, TCSAFLUSH, &raw);
     printf("\033[?25l"); // Hide cursor
 }
+
+int kbhit() {
+    struct timeval tv = {0, 0};
+    fd_set fds;
+    FD_ZERO(&fds);
+    FD_SET(STDIN_FILENO, &fds);
+    return select(STDIN_FILENO + 1, &fds, NULL, NULL, &tv);
+}
+
+void gotoxy(int x, int y) {
+    printf("\033[%d;%dH", y + 1, x + 1);
+}
+
+void setColor(int color) {
+    printf("\033[%dm", color);
+}
+
+void clearScreen() {
+    printf("\033[2J");
+    printf("\033[H");
+}
