@@ -18,3 +18,15 @@ typedef struct {
     int length;
     Direction dir;
 } Snake;
+
+typedef struct {
+    int x, y;
+} Food;
+
+typedef struct {
+    Snake snake;
+    Food food;
+    int score;
+    int gameOver;
+    int speed;
+} Game;
