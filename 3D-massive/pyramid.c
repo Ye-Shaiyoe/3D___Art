@@ -75,3 +75,22 @@ void init() {
     glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
     glEnable(GL_DEPTH_TEST);
 }
+
+int main(int argc, char** argv) {
+    printf("=== Piramida 3D ===\n");
+    printf("Tekan ESC untuk keluar\n\n");
+    
+    glutInit(&argc, argv);
+    glutInitDisplayMode(GLUT_DOUBLE | GLUT_RGB | GLUT_DEPTH);
+    glutInitWindowSize(800, 600);
+    glutCreateWindow("Piramida 3D - Bahasa C");
+    
+    init();
+    
+    glutDisplayFunc(display);
+    glutReshapeFunc(reshape);
+    glutTimerFunc(0, update, 0);
+    
+    glutMainLoop();
+    return 0;
+}
