@@ -62,3 +62,16 @@ void drawPyramid() {
     }
     
     
+    
+void reshape(int w, int h) {
+    glViewport(0, 0, w, h);
+    glMatrixMode(GL_PROJECTION);
+    glLoadIdentity();
+    gluPerspective(45.0, (double)w / (double)h, 1.0, 200.0);
+    glMatrixMode(GL_MODELVIEW);
+}
+
+void init() {
+    glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
+    glEnable(GL_DEPTH_TEST);
+}
